@@ -44,7 +44,7 @@ public class ColaDelCastigo<T> {
 		return collection.isEmpty();
 	}
 
-	public boolean contains(Object o) {
+	public boolean contains(T o) {
 		return collection.contains(o);
 	}
 
@@ -56,7 +56,7 @@ public class ColaDelCastigo<T> {
 		return collection.toArray();
 	}
 
-	public Object[] toArray(Object[] a) throws Exception {
+	public Object[] toArray(T[] a) throws Exception {
 		// Dudo mucho que funcione pero no comprendo que hace.
 		// He mirado el codigo, un poco raro hulio
 		if (a.length == 0)
@@ -66,7 +66,7 @@ public class ColaDelCastigo<T> {
 		}
 	}
 
-	public boolean remove(Object o) {
+	public boolean remove(T o) {
 		return collection.remove(o);
 	}
 
