@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,12 +17,14 @@ public class ColaDelCastigo<T> {
 	 */
 	ArrayList<T> collection;
 	/**
-	 * Comparator that will keep the collection sorted. Has to be of the same object that the collection.
+	 * Comparator that will keep the collection sorted. Has to be of the same object
+	 * that the collection.
 	 */
 	Comparator<T> comparar;
 
 	/**
 	 * Constructor of the collection.
+	 * 
 	 * @param compare Comparator that will be used.
 	 */
 	public ColaDelCastigo(Comparator<T> compare) {
@@ -53,9 +56,14 @@ public class ColaDelCastigo<T> {
 		return collection.toArray();
 	}
 
-	public Object[] toArray(Object[] a) {
-		// TODO Auto-generated method stub
-		return null;
+	public Object[] toArray(Object[] a) throws Exception {
+		// Dudo mucho que funcione pero no comprendo que hace.
+		// He mirado el codigo, un poco raro hulio
+		if (a.length == 0)
+			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
+		else {
+			return (Object[]) Arrays.copyOf(new Object[a.length], a.length, a.getClass());
+		}
 	}
 
 	public boolean remove(Object o) {
@@ -68,12 +76,16 @@ public class ColaDelCastigo<T> {
 
 	public boolean removeAll(Collection<?> c) throws Exception {
 		if (c.size() > collection.size())
-			throw new ColaExceededSizeException("Party is full, pa tu casa");
-		else
-			return collection.removeAll(c);
+			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
+		else if (c.size() == 0)
+			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
+
+		return collection.removeAll(c);
 	}
 
-	public boolean retainAll(Collection<?> c) {
+	public boolean retainAll(Collection<?> c) throws Exception {
+		if (c.size() == 0)
+			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
 		return collection.retainAll(c);
 	}
 
@@ -160,9 +172,11 @@ public class ColaDelCastigo<T> {
 		return col;
 	}
 
-	public T element() {
-		// TODO devolver excepcion
-		return collection.get(0);
+	public T element() throws Exception {
+		if (collection.size() == 0)
+			throw new NullPointerException("No esta loco");
+		else
+			return collection.get(0);
 	}
 
 	public T peek() {

@@ -26,11 +26,12 @@ public class MainApp {
 		for (int i = 0; i < col.size(); i++) {
 			System.out.println(col.get(i));
 		}
-//		try {
-//			col.remove();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+
+		try {
+			col.remove();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
