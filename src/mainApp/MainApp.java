@@ -4,6 +4,7 @@ import utils.ColaDelCastigo;
 
 public class MainApp {
 
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args) {
 		ColaDelCastigo<Integer> col = new ColaDelCastigo<>((o1, o2) -> {
 			return o1 - o2;
@@ -84,11 +85,11 @@ public class MainApp {
 			System.out.println(col.get(i));
 		}
 
-//		try {
-//			col.remove();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			col.remove();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

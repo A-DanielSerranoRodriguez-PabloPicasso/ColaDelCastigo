@@ -31,6 +31,14 @@ public class ColaDelCastigo<T> {
 		this.comparar = compare;
 	}
 
+	private boolean isFull() {
+		return collection.size() == 10;
+	}
+
+	private boolean isNotFull() {
+		return collection.size() < 10;
+	}
+
 	public int size() {
 		return collection.size();
 	}
@@ -61,11 +69,11 @@ public class ColaDelCastigo<T> {
 	}
 
 	public boolean remove(T o) throws Exception {
-		if (collection.size() == 10)
+		if (this.isFull())
 			throw new ElementBlockedException("Ya no puedes vaciar la colección perro");
 		else if (collection.size() == 1)
 			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
-		else if (collection.size() == 0)
+		else if (collection.isEmpty())
 			throw new NullPointerException("Esta vasia");
 		return collection.remove(o);
 	}
@@ -77,14 +85,14 @@ public class ColaDelCastigo<T> {
 	public boolean removeAll(Collection<?> c) throws Exception {
 		if (c.size() > collection.size())
 			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
-		else if (c.size() == 0)
+		else if (c.isEmpty())
 			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
 
 		return collection.removeAll(c);
 	}
 
 	public boolean retainAll(Collection<?> c) throws Exception {
-		if (c.size() == 0)
+		if (c.isEmpty())
 			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
 		return collection.retainAll(c);
 	}
@@ -101,7 +109,7 @@ public class ColaDelCastigo<T> {
 	 *                   the collection.
 	 */
 	public void clear() throws Exception {
-		throw collection.size() == 0 ? new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza")
+		throw collection.isEmpty() ? new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza")
 				: new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
 //		if (coleccion.size() == 0)
 //			throw new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza");
@@ -116,13 +124,13 @@ public class ColaDelCastigo<T> {
 	 * @return True or false, whether it added it successfully or not.
 	 */
 	public boolean add(T e) throws Exception {
-		boolean legit = collection.size() < 10 && e != null && collection.add(e) ? true : false;
+		boolean legit = this.isNotFull() && e != null && collection.add(e) ? true : false;
 
 		if (legit) {
 			Collections.sort(collection, comparar);
 			return true;
 		} else
-			throw collection.size() == 10 ? new ColaExceededSizeException("Ya no me cabe mas senpai")
+			throw this.isFull() ? new ColaExceededSizeException("Ya no me cabe mas senpai")
 					: new LlevateTuNullDeAquiExcepcion("No se permiten nulls payaso");
 
 //		if (coleccion.size() < 10)
@@ -158,7 +166,7 @@ public class ColaDelCastigo<T> {
 	 *                   the collection.
 	 */
 	public T remove() throws Exception {
-		throw collection.size() == 0 ? new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza")
+		throw collection.isEmpty() ? new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza")
 				: new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
 //		if (coleccion.size() == 0)
 //			throw new ColaExceededSizeException("Hippity hoppity esta mas vacio que mi cabeza");
@@ -173,7 +181,7 @@ public class ColaDelCastigo<T> {
 	}
 
 	public T element() throws Exception {
-		if (collection.size() == 0)
+		if (collection.isEmpty())
 			throw new NullPointerException("No esta loco");
 		else
 			return collection.get(0);
