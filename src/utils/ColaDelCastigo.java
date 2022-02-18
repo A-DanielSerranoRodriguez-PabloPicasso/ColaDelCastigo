@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -56,17 +55,18 @@ public class ColaDelCastigo<T> {
 		return collection.toArray();
 	}
 
-	public Object[] toArray(T[] a) throws Exception {
-		// Dudo mucho que funcione pero no comprendo que hace.
-		// He mirado el codigo, un poco raro hulio
-		if (a.length == 0)
-			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
-		else {
-			return (Object[]) Arrays.copyOf(new Object[a.length], a.length, a.getClass());
-		}
+	@SuppressWarnings("hiding")
+	public <T> T[] toArray(T[] a) throws Exception {
+		return collection.toArray(a);
 	}
 
-	public boolean remove(T o) {
+	public boolean remove(T o) throws Exception {
+		if (collection.size() == 10)
+			throw new ElementBlockedException("Ya no puedes vaciar la colección perro");
+		else if (collection.size() == 1)
+			throw new ElementBlockedException("No puedes vaciar por completo la coleccion perro");
+		else if (collection.size() == 0)
+			throw new NullPointerException("Esta vasia");
 		return collection.remove(o);
 	}
 
